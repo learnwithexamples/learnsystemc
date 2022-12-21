@@ -7,8 +7,11 @@ SC_MODULE(MODULE) {
   SC_CTOR(MODULE) {
     SC_CTHREAD(cthread1, clk); // sensitive to clk pos edge
     // no static sensitivity, thus, cannot use dont_initialize()
-    SC_CTHREAD(cthread2, clk.pos()); // sensitive to clk pos edge
+    //SC_CTHREAD(cthread2, clk.pos()); // sensitive to clk pos edge
     SC_CTHREAD(cthread3, clk.neg()); // sensitive to clk neg edge
+
+    SC_THREAD(cthread2);
+    sensitive << clk.pos();
   }
   void cthread1() {
     while (true) {
